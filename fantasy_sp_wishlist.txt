@@ -1,0 +1,41 @@
+o sp Lines and Points with more than two (X/Y) coordinates
+
+o n-dimensional b-box
+
+o extent/bbox with projection (why is this not obvious?, what am I missing)
+
+o robust "transform if needed" in R
+
+what happens here?  
+
+project(project(x, proj, inv = TRUE), proj, inv = TRUE)
+
+proj4string(x) <- CRS("+proj=longlat +datum=WGS84")
+spTransform(x, CRS("+proj=longlat +datum=NAD83"))
+
+proj4string(x) <- CRS("+proj=laea")
+spTransform(x, CRS("+proj=laea"))
+
+This is a general problem also with round-tripping in GDAL etc. the "only WKT is enough" thing, discussed: 
+
+http://lists.osgeo.org/pipermail/gdal-dev/2015-April/041467.html
+http://lists.osgeo.org/pipermail/gdal-dev/2012-November/034558.html
+
+
+o on the fly reprojection for graphics
+
+plot(x, add = TRUE) ## what if the plot is not in projection(x)? 
+
+one package does register its projection against an existing graphics device (fields/mapproj?)
+
+- perhaps this is done like this with a wrapper, like with() or animation::saveHTML
+
+projectIfNeeded(global = transform_to, {
+   plot(x)
+   area(y)
+   et.c
+   })
+   
+   
+
+
