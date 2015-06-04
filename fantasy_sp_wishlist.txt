@@ -4,7 +4,7 @@ o n-dimensional b-box
 
 o extent/bbox with projection (why is this not obvious?, what am I missing)
 
-o robust "transform if needed" in R
+o (I think we maybe got this around 2015) robust "transform if needed" in R
 
 what happens here?  
 
