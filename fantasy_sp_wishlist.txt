@@ -37,5 +37,16 @@ projectIfNeeded(global = transform_to, {
    })
    
    
+## grist for the mill
+
+https://stat.ethz.ch/pipermail/r-sig-geo/2015-June/022942.html
+
+This is a key disconnnect in this discussion, NetCDF will happily store a date-time dimension, but not this hacky dimname workaround.  Layer names are *not* the right (NetCDF-ish) way to do this, NetCDF has *dimensions* - essentially array margins matching a single variable  that you put coordinates into, in a variable of 1-D to match the margin it's applied to. It's very general, albeit very primitive. You can even store it as numbers with metadata specifying the epoch and unit and calendar, I can't see why storing date-times as text would ever be considered a good idea. 
+
+GIS sees "layers" where NetCDF sees a third dimension.  Time is a dimension, which means the latter is the right way. What about when you have more than one attribute per time step (like RGB, or U/V vector components)? In GIS, it is still "layers" with a hacky workaround , in NetCDF it's another 3D variable - one 3D array for each attribute. This is quite a limited model, since - why not allow multiple attributes and multiple dimensions in the same variable? - but still it's coherent within the NetCDF concept. You just can't shoehorn these layernames in a sensible way, which is why Raster* has a slot for z values. 
+Does the setZ() approach not work for NetCDF files written with writeRaster()? I would explore making that work. 
+
+   
+   
 
 
