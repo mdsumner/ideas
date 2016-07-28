@@ -1,0 +1,19 @@
+A new package for the NetCDF library would be helpful. 
+
+NetCDF files store *variables* (arrays), built on *dimensions* (axes used by the variables, with metadata), and *attributes* (variable metadata, and global metadata). 
+
+Typically, you create a connection to a file, and use that connection to read in a variable (or a slice from one) after interrogating the conection for the variable's dimensions and attributes. Sometimes these are mapped grids with a simple 1D axis variable for each dimension - affine, or rectilinear referencing, others have "coordinate arrays" where the positioning is stored explicitly - curvilinear referencing. 
+
+Currently there is good support in R for NetCDF via the ncdf4 and RNetCDF packages, and indirectly via the raster package (leveraging ncdf4) and rgdal (leveraging GDAL). I was very impressed with how much abstraction raster and GDAL provide, but it covers only a relatively small range of the possible file configurations. 
+
+Apart from the domain-specific higher level functions in rgdal and raster for dealing with 2 or 3D grids with affine georeferencing, there is little abstraction over the standard API use. 
+
+A modern i/o package for the format would allow domain-specific packages to be more easily written for specific sources.  This is possible now, but it's limited and quite challenging for many users.  It would be awesome 
+
+1) to be able to have a virtual R array that just paged for data from the NetCDF as it was needed
+
+2) to write a DBI front-end on top of a new modern wrapper to NetCDF. 
+
+3) to have support for composite types, which are not provided by any R package at the moment
+
+All of these would be more readily achievable with a new wrapper. 
